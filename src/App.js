@@ -2,6 +2,11 @@ import Exam from "./Assets/Exam.svg"
 import Wizard from "./Assets/Wizard.gif"
 
 function App() {
+
+
+
+
+	
   return (
 		<div className='h-full flex items-center justify-center'>
 			<div className='h-3/5 w-full flex'>
