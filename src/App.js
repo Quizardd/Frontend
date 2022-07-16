@@ -1,7 +1,5 @@
 import Exam from "./Assets/Exam.svg"
 import Wizard from "./Assets/Wizard.gif"
-import Arrow from "./Assets/Arrow.png"
-
 
 function App() {
   return (
@@ -17,7 +15,7 @@ function App() {
 					<h1 className=' text-center font-semibold text-[#494554] text-lg'>
 						Your witty wizard to create online quizes
 					</h1>
-		
+	
 					<a
 						href='/login'
 						className='w-fit py-3 px-16 mt-12 rounded-2xl text-white bg-[#D53CBB]'>
