@@ -11,6 +11,7 @@ function Quiz({ uid }) {
 		getQuestions();
 		getDuration();
 	}, []);
+
 	useEffect(() => {
 		console.log(questions);
 	}, [questions]);
@@ -27,20 +28,16 @@ function Quiz({ uid }) {
 			`https://f383-122-170-130-112.ngrok.io/quiz/getquiz/?quizid=${uid}`
 		);
 		const ques = await response.json();
-		// console.log(ques)
-		setQuestions(ques.duration);
+		console.log(ques.duration);
+		setDuration(ques.duration);
 	}
-
-	useEffect(() => {
-		setDuration((dur) => {
-			return dur * 60000;
-		});
-	}, [duration]);
 
 	return (
 		<div className='w-3/5 h-4/5 bg-white rounded-xl shadow-xl'>
 			<h1 className='w-full bg-green-400 text-center'>
-				Time left : {duration && <Countdown date={Date.now() +duration} />}
+				Time left :{" "}
+				{duration && <Countdown date={Date.now() + duration * 60000} />}
+				<div></div>
 			</h1>
 		</div>
 	);
