@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Biometric from "../Assets/biometric.gif";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+	let navigate = useNavigate();
+	useEffect(() => {
+		let authToken = window.localStorage.getItem("uid");
+		if (authToken) {
+			navigate("/admin");
+		}
+	}, []);
+
 	const [email, setEmail] = useState("");
 	const [passwordOne, setPasswordOne] = useState("");
 	const [passwordTwo, setPasswordTwo] = useState("");
@@ -27,13 +36,14 @@ const Signup = () => {
 			.then((userCredential) => {
 				// Signed in
 				const user = userCredential.user;
-                window.localStorage.setItem('uid', user.uid);
+				window.localStorage.setItem("uid", user.uid);
+				navigate("/admin");
 			})
 			.catch((error) => {
 				const errorCode = error.code;
-                const errorMessage = error.message;
-                alert(errorMessage)
-           
+				const errorMessage = error.message;
+				alert(errorMessage);
+
 				// ..
 			});
 	};
@@ -59,9 +69,11 @@ const Signup = () => {
 								className='grow w-full flex flex-col items-center justify-evenly'>
 								<input
 									type='email'
-                                    required
-                                    value={email}
-                                    onChange = {(e)=>{setEmail(e.target.value)}}
+									required
+									value={email}
+									onChange={(e) => {
+										setEmail(e.target.value);
+									}}
 									placeholder='Email'
 									className='rounded-lg bg-[#EBEAFF] p-4 px-4 w-4/5'
 								/>

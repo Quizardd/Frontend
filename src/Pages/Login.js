@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Biometric from "../Assets/biometric.gif";
 import Google from "../Assets/google.png";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+	let navigate = useNavigate();
+	useEffect(() => {
+		let authToken = window.localStorage.getItem("uid");
+		if (authToken) {
+			navigate("/admin");
+		}
+	}, []);
+
 	const auth = getAuth();
 	const provider = new GoogleAuthProvider();
 	const [email, setEmail] = useState("");
@@ -21,6 +30,8 @@ const Login = () => {
 				// The signed-in user info.
 				const user = result.user;
 				window.localStorage.setItem("uid", user.uid);
+				window.localStorage.setItem("email", user.email);
+				navigate("/admin");
 				// ...
 			})
 			.catch((error) => {
@@ -43,6 +54,8 @@ const Login = () => {
 				const user = userCredential.user;
 				console.log(user.uid);
 				window.localStorage.setItem("uid", user.uid);
+				window.localStorage.setItem("email", user.email);
+				navigate("/admin");
 			})
 			.catch((error) => {
 				const errorCode = error.code;
